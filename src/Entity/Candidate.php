@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CandidateRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CandidateRepository::class)
@@ -27,6 +28,12 @@ class Candidate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Votre nom doit comporter au moins 2 des caractères",
+     *      maxMessage = "Votre nom ne peut pas comporter plus de 250 caractères"
+     * )
      */
     private $firstName;
 

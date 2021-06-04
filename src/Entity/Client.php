@@ -21,32 +21,32 @@ class Client
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $society;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $activity;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $contactName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $contactNumber;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $contactEmail;
 
@@ -55,6 +55,11 @@ class Client
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profilPicture;
 
 
     public function getId(): ?string
@@ -144,5 +149,26 @@ class Client
         $this->user = $user;
 
         return $this;
+    }
+
+    public function getProfilPicture(): ?string
+    {
+        return $this->profilPicture;
+    }
+
+    public function setProfilPicture(?string $profilPicture): self
+    {
+        $this->profilPicture = $profilPicture;
+
+        return $this;
+    }
+    public function toArray(){
+        return ['society'=>$this->getSociety(),
+                'Activity'=>$this->getActivity(), 
+                'contactName'=>$this->getContactName(), 
+                'status' => $this->getStatus(), 
+                'contactNumber' => $this->getContactNumber(),
+                'contactEmail' => $this->getContactEmail(),
+                'profilPicture' => $this->getProfilPicture()];
     }
 }

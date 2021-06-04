@@ -109,10 +109,8 @@ class CandidateType extends AbstractType
             ])
             ->add('currentLocation')
             ->add('dateOfBirth', DateType::class, [
+                'required'   => false,
                 'widget' => 'single_text',
-                'placeholder' => [
-                    'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
-                ]
             ])
             ->add('placeOfBirth')
             ->add('availability')
