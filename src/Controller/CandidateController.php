@@ -14,8 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Form\FormError;
-
-
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -95,7 +93,7 @@ class CandidateController extends AbstractController
             
                 if($passwordValide){
                     $this->resetPassword($passwordEncoder,$newPassword);
-                    $this->addFlash('success', 'the password was changed');
+                    $this->addFlash('success', 'The password was changed');
                    
                 }else{
                     $this->addFlash('error', 'The password is wrong');
@@ -133,11 +131,17 @@ class CandidateController extends AbstractController
                 'id'=>$candidate->getId()
             ]);
         }
-        return $this->render('candidate/edit.html.twig', [
-            'candidate' => $candidate,
-            'form' => $form->createView(),
-            'form2' => $form2->createView(),
-        ]);
+                $data = $candidate->toArray();
+                $lengthData = count($data);
+
+            return $this->render('candidate/edit.html.twig', [
+                'candidate' => $candidate,
+                'form' => $form->createView(),
+                'dataCandidate' => $data,
+                'lengthData' => $lengthData,
+                'form2' => $form2->createView(),
+            ]);
+       
     }
 
     /**

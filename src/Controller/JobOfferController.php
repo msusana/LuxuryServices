@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\JobOffer;
+use App\Entity\Client;
+use App\Entity\JobCategory;
+use App\Entity\JobType;
 use App\Form\JobOfferType;
 use App\Repository\JobOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,26 +27,37 @@ class JobOfferController extends AbstractController
             'job_offers' => $jobOfferRepository->findAll(),
         ]);
     }
-
-    /**
-     * @Route("/new", name="job_offer_new", methods={"GET","POST"})
+/**
+     * @Route("/{id}/new", name="job_offer_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $jobOffer = new JobOffer();
         $form = $this->createForm(JobOfferType::class, $jobOffer);
         $form->handleRequest($request);
+        // dd($jobOffer);
+        
+        
+        $user = $this->getUser();
+        $client= $this->getDoctrine()->getRepository(Client::class)->findOneBy(array('user' => $user->getId()));
+        $jobOffer->setClient($client);
+          
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $date = new \DateTime();
+            $jobOffer->setDateCreated($date);
             $entityManager->persist($jobOffer);
             $entityManager->flush();
 
-            return $this->redirectToRoute('job_offer_index');
+            return $this->redirectToRoute('client_edit', [
+                'id' => $client->getId(),
+            ]);
         }
 
         return $this->render('job_offer/new.html.twig', [
             'job_offer' => $jobOffer,
+            'client' => $client,
             'form' => $form->createView(),
         ]);
     }
