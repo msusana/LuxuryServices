@@ -50,6 +50,10 @@ class CandidateType extends AbstractType
                         'mimeTypes' => [
                             'application/pdf',
                             'application/x-pdf',
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/pgn',
+                            'image/gif'
                         ],
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])

@@ -85,8 +85,16 @@ class CandidateController extends AbstractController
         $form2->handleRequest($request);
         $data = $candidate->toArray();
         $lengthData = count($data);
-      
-        
+        $profilecompleted = 0;
+
+        foreach($data as $dataCandidate){
+        if($dataCandidate != null){
+            $profilecompleted += 1; 
+            }  
+        }
+        $pourcentageCompleted = $profilecompleted * 100 / $lengthData; 
+       
+         
         if ($form2->isSubmitted() && $form2->isValid()) {
     
             $oldPassword = $form2->get('password')->getData();
@@ -116,7 +124,9 @@ class CandidateController extends AbstractController
                 $candidate->setPassportFile($this->uploadFiles($passport, 'passport_directory', $slugger));
                 $this->addFlash('success', 'The passport was updated');
             }
-            
+             if($pourcentageCompleted === 100){
+            $candidate->setProfileCompleted(1);
+            }
             $this->getDoctrine()->getManager()->flush();
    
 
@@ -129,8 +139,7 @@ class CandidateController extends AbstractController
             return $this->render('candidate/edit.html.twig', [
                 'candidate' => $candidate,
                 'form' => $form->createView(),
-                'dataCandidate' => $data,
-                'lengthData' => $lengthData,
+                'pourcentageCompleted' => $pourcentageCompleted,
                 'form2' => $form2->createView(), 
             ]);
        

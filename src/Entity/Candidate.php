@@ -118,6 +118,11 @@ class Candidate
      */
     private $passportFile;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $profileCompleted;
+
 
     public function getId(): ?string
     {
@@ -355,6 +360,18 @@ class Candidate
                 'experience' => $this->getExperience(),
                 'jobCategory' => $this->getJobCategory(),
                 'passportFile' => $this->getPassportFile()];
+    }
+
+    public function getProfileCompleted(): ?bool
+    {
+        return $this->profileCompleted;
+    }
+
+    public function setProfileCompleted(bool $profileCompleted): self
+    {
+        $this->profileCompleted = $profileCompleted;
+
+        return $this;
     }
 
 }

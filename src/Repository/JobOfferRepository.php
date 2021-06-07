@@ -47,4 +47,13 @@ class JobOfferRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function JobOffersByDateCreated(){
+        return $this->createQueryBuilder('u')
+                    ->select(array('u')) 
+                    ->orderBy('u.dateCreated', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+    }
+        
+    
 }

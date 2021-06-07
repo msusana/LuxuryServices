@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 trait CustomFiles{

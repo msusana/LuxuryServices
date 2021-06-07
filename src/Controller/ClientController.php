@@ -82,6 +82,14 @@ class ClientController extends AbstractController
         $form2 = $this->createForm(UserType::class, $user);
         $form2->handleRequest($request);
         
+        $profilecompleted = 0;
+
+        foreach($data as $dataCandidate){
+        if($dataCandidate != null){
+            $profilecompleted += 1; 
+            }  
+        }
+        $pourcentageCompleted = $profilecompleted * 100 / $lengthData; 
         
         if ($form2->isSubmitted() && $form2->isValid()) {
     
@@ -111,6 +119,8 @@ class ClientController extends AbstractController
             'client' => $client,
             'form' => $form->createView(),
             'form2' => $form2->createView(),
+           'pourcentageCompleted' => $pourcentageCompleted
+
         ]);
     }
 

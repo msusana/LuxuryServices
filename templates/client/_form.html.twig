@@ -18,7 +18,7 @@
                                 
                                 {% if client.profilPicture != '' %}
                                 <div class="existing-file">
-                                    <a href="#!" target="_blank"><i class="material-icons">&#xE24D;</i> profil_picture.jpg</a>
+                                    <a href="{{asset ('/assets/uploads/profilePicture/') ~ client.profilPicture }}" target="_blank"><i class="material-icons">&#xE24D;</i> profil_picture.jpg</a>
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input class="file-path validate" type="text" placeholder="Upload your ID photo" readonly>

@@ -114,12 +114,19 @@
                                 <nav class="overlay-menu">
                                     <ul>
                                         <li><a href="/">Home</a></li>
-                                        <li><a href="/templates/jobs/index.html">Jobs Offers</a></li>
-                                        <li><a href="/templates/compagny.html">About Us</a></li>
-                                        <li><a href="/templates/contact.html">Contact</a></li>
-                                        <li>-</li>
-                                        <li><a href="/templates/auth/profile.html">Profile</a></li>
+                                        <li><a href="{{ path ('job_offer_index')}}">Jobs Offers</a></li>
+                                        <li><a href="{{ path ('aboutUs')}}">About Us</a></li>
+                                         <li><a href="{{ path ('contactUs')}}">Contact</a></li> 
+                                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                            {% if is_granted('ROLE_CANDIDATE') %} 
+                                            
+                                            <li><a target="_self" href="{{ path ('candidate_edit', {'id': candidate.id})}}">Profile</a></li>
+                                            {% elseif is_granted('ROLE_CLIENT') %}
+                                             
+                                            <li><a target="_self" href="{{ path ('client_edit', {'id': client.id})}}">Customer space </a></li>
+                                            {% endif %}
                                         <li><a href="/logout.html">Logout</a></li>
+                                        {% endif %}
                                     </ul>
                                 </nav>
                             </div>
@@ -148,7 +155,7 @@
                             <ul class="menuzord-menu pull-right light" role="navigation">
                                 <li class=" dropdown">
                                       <a target="_self" href="{{ path ('client_edit', {'id': client.id})}}">
-                                        <span>Espace client</span>
+                                        <span>Customer space</span>
                                     </a>
                                 </li>
                                 <li class=" dropdown">
@@ -185,19 +192,19 @@
                                     </a>
                                 </li>
                                 <li class=" dropdown">
-                                    <a target="_self" href="/templates/jobs/index.html">
+                                   <a href="{{ path ('job_offer_index')}}">
                                         <i class=""></i>
                                         <span>Jobs offers</span>
                                     </a>
                                 </li>
                                 <li class=" dropdown">
-                                    <a target="_self" href="/templates/compagny.html">
+                                    <a target="_self" href="{{ path ('aboutUs')}}">
                                         <i class=""></i>
                                         <span>About us</span>
                                     </a>
                                 </li>
                                 <li class=" dropdown">
-                                    <a target="_self" href="/templates/contact.html">
+                                    <a href="{{ path ('contactUs')}}">
                                         <i class=""></i>
                                         <span>Contact</span>
                                     </a>

@@ -18,13 +18,13 @@ class Candidacy
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Candidate::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Candidate::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $candidate;
 
     /**
-     * @ORM\OneToOne(targetEntity=JobOffer::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=JobOffer::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $jobOffer;
@@ -51,7 +51,7 @@ class Candidacy
         return $this->jobOffer;
     }
 
-    public function setJobOffer(JobOffer $jobOffer): self
+    public function setJobOffer(?JobOffer $jobOffer): self
     {
         $this->jobOffer = $jobOffer;
 

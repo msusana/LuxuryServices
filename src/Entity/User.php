@@ -40,7 +40,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateCreated;
 

@@ -46,7 +46,7 @@ class JobOffer
     private $salary;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateCreated;
 
@@ -67,6 +67,11 @@ class JobOffer
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $startingDate;
 
     public function getId(): ?string
     {
@@ -177,6 +182,18 @@ class JobOffer
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getStartingDate(): ?\DateTimeInterface
+    {
+        return $this->startingDate;
+    }
+
+    public function setStartingDate(?\DateTimeInterface $startingDate): self
+    {
+        $this->startingDate = $startingDate;
 
         return $this;
     }

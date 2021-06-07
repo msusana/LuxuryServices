@@ -61,7 +61,8 @@
                               
                                {% if candidate.profilPicture != '' %}
                                 <div class="existing-file">
-                                    <a href= "{{ asset('uploads/profilPicture/') ~ candidate.profilPicture }}" target="_blank"><i class="material-icons">&#xE24D;</i> profil_picture.jpg</a>
+                                
+                                    <a href="{{asset ('/assets/uploads/profilePicture/') ~ candidate.profilPicture }}" target="_blank"><i class="material-icons">&#xE24D;</i> profil_picture.jpg</a>
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input class="file-path validate" type="text" placeholder="Upload your ID photo" readonly>
@@ -122,7 +123,7 @@
                                     </div>
                                     {% if candidate.passportFile != '' %}
                                     <div class="existing-file">
-                                        <a href="#!" target="_blank"><i class="material-icons">&#xE24D;</i> passeport.jpg</a>
+                                        <a href="{{asset ('/assets/uploads/passport/') ~ candidate.passportFile }}" target="_blank"><i class="material-icons">&#xE24D;</i> passeport.jpg</a>
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" placeholder="Upload your passport" readonly>
@@ -144,7 +145,7 @@
                                     </div>
                                     {% if candidate.curriculumVitae != '' %}
                                     <div class="existing-file">
-                                        <a href="" target="_blank"><i class="material-icons">&#xE24D;</i> CV.pdf</a>
+                                        <a href="{{asset ('/assets/uploads/curriculumVitae/') ~ candidate.curriculumVitae}}" target="_blank"><i class="material-icons">&#xE24D;</i> CV.pdf</a>
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" placeholder="Upload your Curriculum Vitae" readonly>
