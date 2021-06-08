@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+
+<section id="admin" class="section-padding gray-bg">
+                <div class="container">
+                    <ul class="portfolio-filter brand-filter text-center">
+                        <li class="waves-effect waves-light btnStatistics">Statistics</li>
+                        <li class=" waves-effect waves-light btnCandidates">Candidates</li>
+                        <li class=" waves-effect waves-light btnClients">Clients</li>
+                        <li class=" waves-effect waves-light btnJobOffers">Job Offers</li>
+                        <li class=" waves-effect waves-light btnCandidacy">candidacy</li>
+                    </ul>
+                            <div id="statistics" class='statistics'>
+                            {{ include('admin/statistics.html.twig') }}
+                            </div>
+
+                            <div id="candidates" class='candidates'>
+                            {{ include('admin/candidates.html.twig') }}
+                            </div>
+                           
+                             <div id="clients" class='clients'>
+                           {{ include('admin/clients.html.twig') }}
+                            </div>
+
+                            <div id="jobOffers" class='jobOffers'>
+                           {{ include('admin/jobOffers.html.twig') }}
+                            </div>
+
+                             <div id="candidacy" class='candidacy'>
+                            candidacy
+                            </div>
+                    </div>
+</section>
+
+{% endblock %}
+ {% block javascripts %}
+           <script src="{{asset('assets/js/js.js') }}"></script>
+        {% endblock %}
+

@@ -7,6 +7,7 @@ use App\Entity\Candidate;
 use App\Form\CandidacyType;
 use App\Repository\JobOfferRepository;
 use App\Repository\CandidacyRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +33,7 @@ class CandidacyController extends AbstractController
      */
     public function new(Request $request, JobOfferRepository $jobOfferRepository, CandidacyRepository $candidacyRepository): Response
     {
+        $date = new DateTime();
         if($user = $this->getUser()){
 
             $candidate= $this->getDoctrine()->getRepository(Candidate::class)->findOneBy(array('user' => $user->getId()));
@@ -41,6 +43,7 @@ class CandidacyController extends AbstractController
             $candidacy = new Candidacy();
             $candidacy->setCandidate($candidate);
             $candidacy->setJobOffer($jobOffer);
+            $candidacy->setDateCreated($date);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($candidacy);

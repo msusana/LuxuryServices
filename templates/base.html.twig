@@ -39,7 +39,10 @@
             $(handler);
         }
     </script>
-
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
     <link href="/assets/css/main.css" rel="stylesheet">
 
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.materialize.a1042cadda540464eafd9350bb40433a_1547807689.css" rel="stylesheet">
@@ -156,6 +159,21 @@
                                 <li class=" dropdown">
                                       <a target="_self" href="{{ path ('client_edit', {'id': client.id})}}">
                                         <span>Customer space</span>
+                                    </a>
+                                </li>
+                                <li class=" dropdown">
+                                    <a target="_self" href="{{ path ('app_logout')}}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
+                                        <span>Logout</span>
+                                    </a>
+
+                                </li>
+                            </ul>
+                            {% elseif is_granted('ROLE_ADMIN') %}
+
+                            <ul class="menuzord-menu pull-right light" role="navigation">
+                                <li class=" dropdown">
+                                      <a target="_self" href="{{ path ('admin')}}">
+                                        <span>Admin space</span>
                                     </a>
                                 </li>
                                 <li class=" dropdown">

@@ -72,7 +72,7 @@ class ClientController extends AbstractController
     {
         $user = $this->getUser();
         $userEmail = $user->getEmail();
-        $client= $this->getDoctrine()->getRepository(Client::class)->findOneBy(array('user' => $user->getId()));
+       
         $data = $client->toArray();
         $lengthData = count($data);
 

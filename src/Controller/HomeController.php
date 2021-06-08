@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Candidate;
 use App\Entity\Client;
 use App\Entity\User;
+use App\Repository\JobCategoryRepository;
+use App\Repository\JobOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,8 +16,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(JobOfferRepository $jobOfferRepository, JobCategoryRepository $jobCategoryRepository): Response
     {
+        $jobOffer = $jobOfferRepository->findAll();
+        $jobCategory = $jobCategoryRepository->findAll();
+ 
         if($this->getUser()){ 
 
             if($this->getUser()->getRoles()[0] === "ROLE_CANDIDATE"){
@@ -26,6 +31,8 @@ class HomeController extends AbstractController
                     'controller_name' => 'HomeController',
                     'user' => $user,
                     'candidate' => $candidate,
+                    'job_category'=>$jobCategory,
+                    'job_offers'=>$jobOffer,
                 ]);
 
             }elseif($this->getUser()->getRoles()[0] === "ROLE_CLIENT") {
@@ -37,6 +44,8 @@ class HomeController extends AbstractController
                     'controller_name' => 'HomeController',
                     'user' => $user,
                     'client' => $client,
+                    'job_category'=>$jobCategory,
+                    'job_offers'=>$jobOffer,
                 ]);
 
             }elseif($this->getUser()->getRoles()[0] == "ROLE_ADMIN"){
@@ -45,14 +54,18 @@ class HomeController extends AbstractController
         
                 return $this->render('home/index.html.twig', [
                     'controller_name' => 'HomeController',
-                    'user' => $user
+                    'user' => $user,
+                    'job_category'=>$jobCategory,
+                    'job_offers'=>$jobOffer,
                 ]);
 
             }
         }else{
 
             return $this->render('home/index.html.twig', [
-                'controller_name' => 'HomeController'
+                'controller_name' => 'HomeController',
+                'job_category'=>$jobCategory,
+                    'job_offers'=>$jobOffer,
             ]);
         }
     }
