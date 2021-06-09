@@ -15,16 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ExperienceController extends AbstractController
 {
-    /**
-     * @Route("/", name="experience_index", methods={"GET"})
-     */
-    public function index(ExperienceRepository $experienceRepository): Response
-    {
-        return $this->render('experience/index.html.twig', [
-            'experiences' => $experienceRepository->findAll(),
-        ]);
-    }
-
+    
     /**
      * @Route("/new", name="experience_new", methods={"GET","POST"})
      */
@@ -39,7 +30,7 @@ class ExperienceController extends AbstractController
             $entityManager->persist($experience);
             $entityManager->flush();
 
-            return $this->redirectToRoute('experience_index');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('experience/new.html.twig', [
@@ -48,15 +39,6 @@ class ExperienceController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="experience_show", methods={"GET"})
-     */
-    public function show(Experience $experience): Response
-    {
-        return $this->render('experience/show.html.twig', [
-            'experience' => $experience,
-        ]);
-    }
 
     /**
      * @Route("/{id}/edit", name="experience_edit", methods={"GET","POST"})
@@ -69,7 +51,7 @@ class ExperienceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('experience_index');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('experience/edit.html.twig', [
@@ -89,6 +71,6 @@ class ExperienceController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('experience_index');
+        return $this->redirectToRoute('admin');
     }
 }

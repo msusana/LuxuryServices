@@ -3,15 +3,22 @@
 {% block title %}Admin{% endblock %}
 
 {% block body %}
+<div class="base">
+    <!-- Page -->
+    <div class="page">
 
-<section id="admin" class="section-padding gray-bg">
+       
+<section id="admin" class="padding-top-160 padding-bottom-80 mt-30">
                 <div class="container">
                     <ul class="portfolio-filter brand-filter text-center">
                         <li class="waves-effect waves-light btnStatistics">Statistics</li>
                         <li class=" waves-effect waves-light btnCandidates">Candidates</li>
                         <li class=" waves-effect waves-light btnClients">Clients</li>
                         <li class=" waves-effect waves-light btnJobOffers">Job Offers</li>
-                        <li class=" waves-effect waves-light btnCandidacy">candidacy</li>
+                        <li class=" waves-effect waves-light btnCandidacy">candidacies</li>
+                        <li class=" waves-effect waves-light btnExperience">Candidate Experience</li>
+                        <li class=" waves-effect waves-light btnJobType">Job Type</li>
+                        <li class=" waves-effect waves-light btnJobCategory">Job Category</li>
                     </ul>
                             <div id="statistics" class='statistics'>
                             {{ include('admin/statistics.html.twig') }}
@@ -30,11 +37,91 @@
                             </div>
 
                              <div id="candidacy" class='candidacy'>
-                            candidacy
+                          {{ include('admin/candidacy.html.twig') }}
                             </div>
+
+                            <div id="experience" class='experience'>
+                                <table class="table">
+                                    <tbody>
+                                    {% for experience in admin_infos.experience %}
+                                        <tr>
+                                            <td>{{ experience.experience }}</td>
+                                            <td>
+                                                <a href="{{ path('job_category_new') }}">Create new Candidate Experience</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('experience_edit', {'id': experience.id}) }}">edit</a>
+                                            </td>
+                                            <td>
+                                                {{ include('experience/_delete_form.html.twig') }}
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="3">no records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="jobType" class='jobType'>
+                                <table class="table">
+                                    <tbody>
+                                    {% for jobType in admin_infos.jobType %}
+                                        <tr>
+                                            <td>{{ jobType.type }}</td>
+                                            <td>
+                                                <a href="{{ path('job_type_new') }}">Create new Job Type</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('job_type_edit', {'id': jobType.id}) }}">edit</a>
+                                            </td>
+                                            <td>
+                                                 {{ include('job_type/_delete_form.html.twig') }}
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="3">no records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                             <div id="jobCategory" class='jobCategory'>
+                          <table class="table">
+                            <tbody>
+                            {% for jobCategory in admin_infos.jobCategory %}
+                                <tr>
+                                    <td>{{ jobCategory.category }}</td>
+                                    <td>
+                                         <a href="{{ path('job_category_new') }}">Create new Job Category</a>
+                                    </td>
+                                   
+                                    <td>
+                                        <a href="{{ path('job_category_edit', {'id': jobCategory.id}) }}">edit</a>
+                                    </td>
+
+                                    <td>
+                                        {{ include('job_category/_delete_form.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                            </div>
+
+
                     </div>
 </section>
-
+</div>
+</div>
 {% endblock %}
  {% block javascripts %}
            <script src="{{asset('assets/js/js.js') }}"></script>

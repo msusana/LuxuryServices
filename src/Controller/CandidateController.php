@@ -78,7 +78,7 @@ class CandidateController extends AbstractController
     {   
         $user = $this->getUser();
         $userEmail = $user->getEmail();
-        
+     
         $form = $this->createForm(CandidateType::class, $candidate);
         $form2 = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -104,7 +104,7 @@ class CandidateController extends AbstractController
     
             }
       
-        $candidate= $this->getDoctrine()->getRepository(Candidate::class)->findOneBy(array('user' => $user->getId()));
+        
         
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -124,9 +124,13 @@ class CandidateController extends AbstractController
                 $candidate->setPassportFile($this->uploadFiles($passport, 'passport_directory', $slugger));
                 $this->addFlash('success', 'The passport was updated');
             }
+
              if($pourcentageCompleted === 100){
-            $candidate->setProfileCompleted(1);
+                $candidate->setProfileCompleted(1);
+            }else{
+                $candidate->setProfileCompleted(0); 
             }
+
             $this->getDoctrine()->getManager()->flush();
    
 

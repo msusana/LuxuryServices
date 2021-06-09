@@ -15,15 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class JobCategoryController extends AbstractController
 {
-    /**
-     * @Route("/", name="job_category_index", methods={"GET"})
-     */
-    public function index(JobCategoryRepository $jobCategoryRepository): Response
-    {
-        return $this->render('job_category/index.html.twig', [
-            'job_categories' => $jobCategoryRepository->findAll(),
-        ]);
-    }
 
     /**
      * @Route("/new", name="job_category_new", methods={"GET","POST"})
@@ -39,7 +30,7 @@ class JobCategoryController extends AbstractController
             $entityManager->persist($jobCategory);
             $entityManager->flush();
 
-            return $this->redirectToRoute('job_category_index');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('job_category/new.html.twig', [
@@ -48,15 +39,6 @@ class JobCategoryController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="job_category_show", methods={"GET"})
-     */
-    public function show(JobCategory $jobCategory): Response
-    {
-        return $this->render('job_category/show.html.twig', [
-            'job_category' => $jobCategory,
-        ]);
-    }
 
     /**
      * @Route("/{id}/edit", name="job_category_edit", methods={"GET","POST"})
@@ -69,7 +51,7 @@ class JobCategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('job_category_index');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('job_category/edit.html.twig', [
@@ -89,6 +71,6 @@ class JobCategoryController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('job_category_index');
+        return $this->redirectToRoute('admin');
     }
 }

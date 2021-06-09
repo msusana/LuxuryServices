@@ -14,6 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\InfoAdminCandidate;
+use App\Entity\InfoAdminClient;
+use App\Entity\Experience;
+use App\Entity\JobCategory;
+use App\Entity\JobType;
 use App\Controller\InfoAdminCandidateController;
 use App\Form\InfoAdminCandidateType;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,8 +58,25 @@ class AdminController extends AbstractController
             $clients= $this->getDoctrine()->getRepository(Client::class)->findAll();
             $candidacy= $this->getDoctrine()->getRepository(Candidacy::class)->findAll();
             $jobOffer= $this->getDoctrine()->getRepository(JobOffer::class)->findAll();
+            $experience= $this->getDoctrine()->getRepository(Experience::class)->findAll();
+            $jobCategory= $this->getDoctrine()->getRepository(JobCategory::class)->findAll();
+            $jobType= $this->getDoctrine()->getRepository(JobType::class)->findAll();
 
-            $allInfos = ['candidates' => $candidates, 'clients' => $clients, 'candidacy' => $candidacy, 'jobOffer' => $jobOffer];
+            $candidateAll = [];
+            $clientAll = [];
+            foreach($candidates as $candidate){
+
+                array_push($candidateAll, [ "candidate" => $candidate, "note" => $this->getDoctrine()->getRepository(InfoAdminCandidate::class)->findBy(array('candidate' => $candidate->getId()))]);
+
+            }
+
+            foreach($clients as $client){
+
+                array_push($clientAll, [ "client" => $client, "note" => $this->getDoctrine()->getRepository(InfoAdminClient::class)->findBy(array('client' => $client->getId()))]);
+
+            }
+
+            $allInfos = ['candidates' => $candidateAll, 'clients' => $clientAll, 'candidacy' => $candidacy, 'jobOffer' => $jobOffer, 'jobCategory' => $jobCategory, 'jobType' => $jobType, 'experience' => $experience];
 
             return $this->render('admin/index.html.twig', [
                 'controller_name' => 'AdminController',
