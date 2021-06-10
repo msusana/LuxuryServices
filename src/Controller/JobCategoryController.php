@@ -60,17 +60,4 @@ class JobCategoryController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="job_category_delete", methods={"POST"})
-     */
-    public function delete(Request $request, JobCategory $jobCategory): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$jobCategory->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($jobCategory);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('admin');
-    }
 }

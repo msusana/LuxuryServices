@@ -18,7 +18,7 @@ class HomeController extends AbstractController
      */
     public function index(JobOfferRepository $jobOfferRepository, JobCategoryRepository $jobCategoryRepository): Response
     {
-        $jobOffer = $jobOfferRepository->findAll();
+        $jobOffer = $jobOfferRepository->findAllByLimit();
         $jobCategory = $jobCategoryRepository->findAll();
  
         if($this->getUser()){ 

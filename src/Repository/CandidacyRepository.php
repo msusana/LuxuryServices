@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Candidacy;
+use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Query\Expr\Join;
 
 /**
  * @method Candidacy|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +49,10 @@ class CandidacyRepository extends ServiceEntityRepository
         ;
     }
     */
+
+   
+
+
+    //buscar todas las ofertas de trabajo con el id del cliente, a partir de estas ofertas buscar las
+    //cadidaturas con este id
 }

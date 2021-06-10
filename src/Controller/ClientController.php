@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Candidacy;
 use App\Form\UserType;
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Repository\CandidacyRepository;
 use App\Repository\ClientRepository;
+use App\Repository\JobOfferRepository;
+use App\Repository\CandidateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use \App\Traits\CustomResetPassword;
 use \App\Traits\CustomFiles;
+use App\Entity\JobOffer;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
@@ -70,6 +75,7 @@ class ClientController extends AbstractController
      */
     public function edit(Request $request, Client $client,  UserPasswordEncoderInterface $passwordEncoder, SluggerInterface $slugger): Response
     {
+        $allJobOffer= $this->getDoctrine()->getRepository(JobOffer::class)->findBy(array('client' => $client->getId()));
         $user = $this->getUser();
         $userEmail = $user->getEmail();
        
@@ -119,7 +125,8 @@ class ClientController extends AbstractController
             'client' => $client,
             'form' => $form->createView(),
             'form2' => $form2->createView(),
-           'pourcentageCompleted' => $pourcentageCompleted
+           'pourcentageCompleted' => $pourcentageCompleted,
+           'jobOffer' => $allJobOffer,
 
         ]);
     }
@@ -136,5 +143,27 @@ class ClientController extends AbstractController
         }
 
         return $this->redirectToRoute('client_index');
+    }
+    /**
+     * @Route("/{id}", name="candidacies", priority=1, methods={"GET"})
+     */
+    public function candidacies(Request $request, Client $client, CandidateRepository $candidateRepository, ClientRepository $clientRepository, JobOfferRepository $jobOfferRepository, CandidacyRepository $candidacyRepository): Response
+    {
+        $jobOffers= $jobOfferRepository->findBy(['client'=> $client]);
+        $candidaciesCompleted = [];
+        foreach($jobOffers as $jobOffer){
+           $candidacies = $candidacyRepository->findBy(['jobOffer' => $jobOffer]);  
+           foreach($candidacies as $candidacy){
+              $candidate = $candidateRepository->findOneBy(['id' => $candidacy->getCandidate()->getId()]);  
+              array_push($candidaciesCompleted, ['candidacy' => $candidacy , 'candidate' => $candidate]);
+           dd($candidaciesCompleted);}
+           
+           
+        }
+        
+       
+        return $this->render('client/candidacies.html.twig', [
+            'client' => $client,
+        ]);  
     }
 }

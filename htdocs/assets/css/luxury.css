@@ -219,3 +219,10 @@ body .log-section form .links a {
     margin-bottom: 10px;
     border-bottom: 1px solid rgba(160, 159, 159, 0.576);
 }
+.truncateText {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    width: 350px;
+  }

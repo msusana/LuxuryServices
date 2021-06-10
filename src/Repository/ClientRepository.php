@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Client;
+use App\Entity\Candidacy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +48,5 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
     */
+  
 }

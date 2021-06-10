@@ -81,3 +81,14 @@
 </div>
 
 {% endblock %}
+{% block javascripts %}
+        <script>
+        $(document).ready(function(){
+        $(".offer_display").hide();
+        $( "#offer_display_btn" ).click(function() {
+        $(`.offer_display`).toggle();
+            });
+        });
+         
+         </script> 
+        {% endblock %}

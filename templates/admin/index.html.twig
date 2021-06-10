@@ -40,20 +40,15 @@
                           {{ include('admin/candidacy.html.twig') }}
                             </div>
 
-                            <div id="experience" class='experience'>
-                                <table class="table">
+                            <div id="experience" class='experience center'>
+                                 <a class="btn mb-20" href="{{ path('experience_new') }}">Create new Candidate Experience</a>
+                                 <table class="table">
                                     <tbody>
                                     {% for experience in admin_infos.experience %}
                                         <tr>
                                             <td>{{ experience.experience }}</td>
                                             <td>
-                                                <a href="{{ path('job_category_new') }}">Create new Candidate Experience</a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ path('experience_edit', {'id': experience.id}) }}">edit</a>
-                                            </td>
-                                            <td>
-                                                {{ include('experience/_delete_form.html.twig') }}
+                                                <a class="btn gradient secondary waves-effect waves-light" href="{{ path('experience_edit', {'id': experience.id}) }}">edit</a>
                                             </td>
                                         </tr>
                                     {% else %}
@@ -65,20 +60,16 @@
                                 </table>
                             </div>
 
-                            <div id="jobType" class='jobType'>
+                            <div id="jobType" class='jobType center'>
+                            <a class="btn mb-20" href="{{ path('job_type_new') }}">Create new Job Type</a>
                                 <table class="table">
                                     <tbody>
                                     {% for jobType in admin_infos.jobType %}
                                         <tr>
                                             <td>{{ jobType.type }}</td>
+                                    
                                             <td>
-                                                <a href="{{ path('job_type_new') }}">Create new Job Type</a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ path('job_type_edit', {'id': jobType.id}) }}">edit</a>
-                                            </td>
-                                            <td>
-                                                 {{ include('job_type/_delete_form.html.twig') }}
+                                                <a class="btn gradient secondary waves-effect waves-light" href="{{ path('job_type_edit', {'id': jobType.id}) }}">edit</a>
                                             </td>
                                         </tr>
                                     {% else %}
@@ -90,23 +81,18 @@
                                 </table>
                             </div>
 
-                             <div id="jobCategory" class='jobCategory'>
+                             <div id="jobCategory" class='jobCategory center'> 
+                             <a class="btn mb-20" href="{{ path('job_category_new') }}">Create new Job Category</a>
                           <table class="table">
                             <tbody>
                             {% for jobCategory in admin_infos.jobCategory %}
                                 <tr>
                                     <td>{{ jobCategory.category }}</td>
-                                    <td>
-                                         <a href="{{ path('job_category_new') }}">Create new Job Category</a>
-                                    </td>
                                    
                                     <td>
-                                        <a href="{{ path('job_category_edit', {'id': jobCategory.id}) }}">edit</a>
+                                        <a class="btn gradient secondary waves-effect waves-light" href="{{ path('job_category_edit', {'id': jobCategory.id}) }}">edit</a>
                                     </td>
 
-                                    <td>
-                                        {{ include('job_category/_delete_form.html.twig') }}
-                                    </td>
                                 </tr>
                             {% else %}
                                 <tr>
