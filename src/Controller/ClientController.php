@@ -149,17 +149,19 @@ class ClientController extends AbstractController
      */
     public function candidacies(Request $request, Client $client, CandidateRepository $candidateRepository, ClientRepository $clientRepository, JobOfferRepository $jobOfferRepository, CandidacyRepository $candidacyRepository): Response
     {
-        $jobOffers= $jobOfferRepository->findBy(['client'=> $client]);
-        $candidaciesCompleted = [];
-        foreach($jobOffers as $jobOffer){
-           $candidacies = $candidacyRepository->findBy(['jobOffer' => $jobOffer]);  
-           foreach($candidacies as $candidacy){
-              $candidate = $candidateRepository->findOneBy(['id' => $candidacy->getCandidate()->getId()]);  
-              array_push($candidaciesCompleted, ['candidacy' => $candidacy , 'candidate' => $candidate]);
-           dd($candidaciesCompleted);}
+        $all = $candidacyRepository->findAllCandidacyFromClient($client);
+        dd($all);
+        // $jobOffers= $jobOfferRepository->findBy(['client'=> $client]);
+        // $candidaciesCompleted = [];
+        // foreach($jobOffers as $jobOffer){
+        //    $candidacies = $candidacyRepository->findBy(['jobOffer' => $jobOffer]);  
+        //    foreach($candidacies as $candidacy){
+        //       //$candidate = $candidateRepository->findOneBy(['id' => $candidacy->getCandidate()->getId()]);  
+        //       array_push($candidaciesCompleted, ['candidacy' => $candidacy]);
+        //    dd($candidaciesCompleted);}
            
            
-        }
+        // }
         
        
         return $this->render('client/candidacies.html.twig', [

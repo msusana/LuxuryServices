@@ -38,20 +38,41 @@ class CandidacyRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Candidacy
+    
+
+    /**
+     * @return Candidacy[] Returns an array of Candidacy objects
+     */
+    public function findAllCandidacyFromClient($value): array
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->createQueryBuilder('candidacy')
+  
+        ->addSelect('candidate')
+        ->join('candidacy.candidate' , 'candidate','WITH', 'candidate = candidacy.candidate')
+
+        ->addSelect('jobOffer') 
+        ->join('candidacy.jobOffer' , 'jobOffer','WITH', 'jobOffer = candidacy.jobOffer')
+
+        ->addSelect('client')
+        ->join('jobOffer.client' , 'client','WITH', 'client = jobOffer.client')
+
+        ->where('jobOffer.client = :value')
+        ->setParameter('value', $value)
+
+        ->getQuery()
+        ->getResult();   
     }
-    */
 
-   
-
+    public function findJobOfferCandidacy($jobOffer, $candidate)
+    {
+        return $this->createQueryBuilder('candidacy')
+        ->where('candidacy.jobOffer= :jobOffer')  
+        ->setParameter('jobOffer', $jobOffer->getId())
+        ->andWhere('candidacy.candidate= :candidate')
+        ->setParameter('candidate', $candidate->getId())
+        ->getQuery()
+        ->getOneOrNullResult();   
+    }
 
     //buscar todas las ofertas de trabajo con el id del cliente, a partir de estas ofertas buscar las
     //cadidaturas con este id

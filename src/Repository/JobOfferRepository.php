@@ -71,6 +71,8 @@ class JobOfferRepository extends ServiceEntityRepository
             ->setMaxResults(4);
         return $query->getResult();
     }
-        
+    
+    
+    
     
 }

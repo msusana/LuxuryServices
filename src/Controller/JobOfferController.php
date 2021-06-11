@@ -11,6 +11,7 @@ use App\Repository\JobCategoryRepository;
 use App\Entity\JobType;
 use App\Form\JobOfferType;
 use App\Repository\CandidacyRepository;
+use App\Repository\CandidateRepository;
 use App\Repository\JobOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,14 +89,16 @@ class JobOfferController extends AbstractController
      /**
      * @Route("/{id}", name="job_offer_show", methods={"GET", "POST"})
      */
-    public function show(JobOffer $jobOffer, CandidacyRepository $candidacyRepository, JobOfferRepository $jobOfferRepository, Request $request): Response
-    {
+    public function show(JobOffer $jobOffer, CandidacyRepository $candidacyRepository, JobOfferRepository $jobOfferRepository, Request $request, CandidateRepository $candidateRepository): Response
+    {   $user = $this->getUser();
+        $candidate = $candidateRepository->findOneBy(['user'=> $user->getId()]); 
+        $candidacyExist= $candidacyRepository->findJobOfferCandidacy($jobOffer, $candidate);
+  
         $allJobs= $jobOfferRepository->JobOffersByDateCreated();
         $next = $request->get('next'); 
         $previous = $request->get('previous'); 
-        $user = $this->getUser();
         $jobOffer->setJobType($this->getDoctrine()->getRepository(JobType::class)->findOneBy(array('id' => $jobOffer->getJobType())));
-        $candidacyExist = $candidacyRepository->findOneBy(array('jobOffer' => $jobOffer->getId()));
+       
         $i = 0;
         $lengthJobOffer = count($allJobs);
        
@@ -121,6 +124,9 @@ class JobOfferController extends AbstractController
                            $jobOffer= $allJobs[$i];    
                           
                         }
+                        return $this->redirectToRoute('job_offer_show', [
+                            'id' => $jobOffer->getId(),
+                        ]);
             }
             if($previous){
                 foreach($allJobs as $jobsOffer){
@@ -138,6 +144,9 @@ class JobOfferController extends AbstractController
                 }else{
                     $jobOffer= $allJobs[$i];     
                 }
+                return $this->redirectToRoute('job_offer_show', [
+                    'id' => $jobOffer->getId(),
+                ]);
             }
             return $this->render('job_offer/show.html.twig', [
                 'job_offer' => $jobOffer,
