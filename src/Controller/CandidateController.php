@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\CandidateType;
 use App\Form\UserType;
 use App\Repository\CandidateRepository;
+use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,15 +62,6 @@ class CandidateController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="candidate_show", methods={"GET"})
-     */
-    public function show(Candidate $candidate): Response
-    {
-        return $this->render('candidate/show.html.twig', [
-            'candidate' => $candidate,
-        ]);
-    }
 
     /**
      * @Route("/{id}/edit", name="candidate_edit", methods={"GET","POST"})

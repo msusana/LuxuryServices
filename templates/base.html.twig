@@ -121,10 +121,10 @@
                                         <li><a href="{{ path ('aboutUs')}}">About Us</a></li>
                                          <li><a href="{{ path ('contactUs')}}">Contact</a></li> 
                                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                                            {% if is_granted('ROLE_CANDIDATE') %} 
+                                            {% if (is_granted('ROLE_CANDIDATE')) and (is_granted('ROLE_CLIENT') == false) and (is_granted('ROLE_ADMIN') == false) %} 
                                             
                                             <li><a target="_self" href="{{ path ('candidate_edit', {'id': candidate.id})}}">Profile</a></li>
-                                            {% elseif is_granted('ROLE_CLIENT') %}
+                                            {% elseif (is_granted('ROLE_CLIENT')) and (is_granted('ROLE_CANDIDATE') == false) and (is_granted('ROLE_ADMIN') == false) %}
                                              <li><a target="_self" href="{{ path ('candidacies', {'id': client.id})}}">Candidacies received</a>
                                 </li>
                                             <li><a target="_self" href="{{ path ('client_edit', {'id': client.id})}}">Customer space </a></li>
@@ -138,7 +138,7 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                           {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
-                                  {% if is_granted('ROLE_CANDIDATE') %}                            
+                                  {% if (is_granted('ROLE_CANDIDATE')) and (is_granted('ROLE_CLIENT') == false) and (is_granted('ROLE_ADMIN') == false) %}                            
 
                              <ul class="menuzord-menu pull-right light" role="navigation">
                                 <li class=" dropdown">
@@ -154,7 +154,7 @@
                                 </li>
                             </ul>
 
-                            {% elseif is_granted('ROLE_CLIENT') %}
+                            {% elseif (is_granted('ROLE_CLIENT')) and (is_granted('ROLE_CANDIDATE') == false) and (is_granted('ROLE_ADMIN') == false) %}
                             
                             <ul class="menuzord-menu pull-right light" role="navigation">
                              <li class=" dropdown">

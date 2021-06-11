@@ -35,7 +35,7 @@
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ candidacy.id) }}"> 
                                     <button type="submit" class="btn btn-block btn-lg waves-effect waves-light red">Delete my candidacy</button>
                                  </form>
-                                <div class="btn btn-success mt-30 waves-effect waves-light disabled">You have applied for this job</div>
+                                <div class=" btn-success mt-30 waves-effect waves-light "><p class=' mb-10 mr-10 ml-10 mt-10'>You have applied for this job </br>on {{candidacyExist.dateCreated|date('m-d-Y')}}</p></div>
                                 {% endif %}
                             {% else %}
                             <h5>Sign up for candidate</h5>

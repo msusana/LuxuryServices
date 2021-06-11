@@ -6,6 +6,7 @@ use App\Entity\Candidacy;
 use App\Form\UserType;
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Entity\Candidate;
 use App\Repository\CandidacyRepository;
 use App\Repository\ClientRepository;
 use App\Repository\JobOfferRepository;
@@ -147,25 +148,25 @@ class ClientController extends AbstractController
     /**
      * @Route("/{id}", name="candidacies", priority=1, methods={"GET"})
      */
-    public function candidacies(Request $request, Client $client, CandidateRepository $candidateRepository, ClientRepository $clientRepository, JobOfferRepository $jobOfferRepository, CandidacyRepository $candidacyRepository): Response
+    public function candidacies(Request $request, Client $client, CandidacyRepository $candidacyRepository): Response
     {
         $all = $candidacyRepository->findAllCandidacyFromClient($client);
-        dd($all);
-        // $jobOffers= $jobOfferRepository->findBy(['client'=> $client]);
-        // $candidaciesCompleted = [];
-        // foreach($jobOffers as $jobOffer){
-        //    $candidacies = $candidacyRepository->findBy(['jobOffer' => $jobOffer]);  
-        //    foreach($candidacies as $candidacy){
-        //       //$candidate = $candidateRepository->findOneBy(['id' => $candidacy->getCandidate()->getId()]);  
-        //       array_push($candidaciesCompleted, ['candidacy' => $candidacy]);
-        //    dd($candidaciesCompleted);}
-           
-           
-        // }
-        
-       
         return $this->render('client/candidacies.html.twig', [
-            'client' => $client,
+            'client'=>$client,
+            'candidacies' => $all            
         ]);  
+    }
+    /**
+     * @Route("/show_candidate{id}", name="showCandidate", priority=2, methods={"GET"})
+     */
+    public function showCandidate(Candidate $candidate, ClientRepository $clientRepository): Response
+    {
+        $user = $this->getUser();
+        $clientConnected = $clientRepository->findOneBy(['user'=> $user]);
+
+        return $this->render('client/showCandidate.html.twig', [
+            'candidate' => $candidate,
+            'client'=>$clientConnected
+        ]);
     }
 }

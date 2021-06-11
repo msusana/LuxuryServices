@@ -92,7 +92,11 @@ class JobOfferController extends AbstractController
     public function show(JobOffer $jobOffer, CandidacyRepository $candidacyRepository, JobOfferRepository $jobOfferRepository, Request $request, CandidateRepository $candidateRepository): Response
     {   $user = $this->getUser();
         $candidate = $candidateRepository->findOneBy(['user'=> $user->getId()]); 
-        $candidacyExist= $candidacyRepository->findJobOfferCandidacy($jobOffer, $candidate);
+        if($user->getRoles()[0] === "ROLE_CANDIDATE"){
+            $candidacyExist= $candidacyRepository->findJobOfferCandidacy($jobOffer, $candidate);
+        }else{
+            $candidacyExist = false;
+        }
   
         $allJobs= $jobOfferRepository->JobOffersByDateCreated();
         $next = $request->get('next'); 

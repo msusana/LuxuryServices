@@ -50,9 +50,18 @@ class CandidacyRepository extends ServiceEntityRepository
         ->addSelect('candidate')
         ->join('candidacy.candidate' , 'candidate','WITH', 'candidate = candidacy.candidate')
 
+        ->addSelect('experience')
+        ->join('candidate.experience' , 'experience','WITH', 'experience = candidate.experience')
+
+        ->addSelect('jobCategory')
+        ->join('candidate.jobCategory' , 'jobCategory','WITH', 'jobCategory = candidate.jobCategory')
+
+        ->addSelect('user')
+        ->join('candidate.user' , 'user','WITH', 'user = candidate.user')
+
         ->addSelect('jobOffer') 
         ->join('candidacy.jobOffer' , 'jobOffer','WITH', 'jobOffer = candidacy.jobOffer')
-
+        
         ->addSelect('client')
         ->join('jobOffer.client' , 'client','WITH', 'client = jobOffer.client')
 
@@ -77,3 +86,7 @@ class CandidacyRepository extends ServiceEntityRepository
     //buscar todas las ofertas de trabajo con el id del cliente, a partir de estas ofertas buscar las
     //cadidaturas con este id
 }
+
+
+
+
