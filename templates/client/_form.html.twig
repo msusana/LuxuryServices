@@ -81,7 +81,6 @@
                         </button>
                         </div>
                     
-
                     {{ form_end(form) }}
                     </div>
                     
@@ -96,29 +95,37 @@
                      
                     
                     <div class="offer_display">
-                        {% for job in jobOffer %}
+                        {% for job_offer in jobOffer %}
                                 <div class="portfolio-wrapper">
                                     <div class="card job-card">
                                         <div class="card-content">
+
+                                    
+
                                             <span class="title">
-                                                <span class="card-title">{{job.jobTitle}}</span>
-                                                <span class="ref grey-text">Ref. {{job.id}}</span>
+                                                <span class="card-title">{{job_offer.jobTitle}}</span>
+                                                <span class="ref grey-text">Ref. {{job_offer.id}}</span>
                                             </span>
                                             <div class="metas mb-20">
                                                 <div class="meta">
-                                                    <i class="material-icons">&#xE53E;</i>{{job.salary}}&euro;
+                                                    <i class="material-icons">&#xE53E;</i>{{job_offer.salary}}&euro;
                                                 </div>
                                                 <div class="meta">
-                                                    <i class="material-icons">&#xE916;</i>{{ job.startingDate|date("m/d/Y") }}
+                                                    <i class="material-icons">&#xE916;</i>{{ job_offer.startingDate|date("m/d/Y") }}
                                                 </div>
                                                 <div class="meta">
-                                                    <i class="material-icons">&#xE55F;</i>{{job.location}}
+                                                    <i class="material-icons">&#xE55F;</i>{{job_offer.location}}
                                                 </div>
                                             </div>
-                                            <p class="truncated">{{job.description}}</p>
+                                            <p class="truncated">{{job_offer.description}}</p>
                                         </div>
                                         <div class="card-action">
-                                            <a class="btn btn-md primary border waves-effect waves-dark" href="{{ path ('job_offer_show', {'id': job.id})}}">Details</a>
+                                             <div class="row">
+                                                <div class="col s12 m6">
+                                            <a class="btn btn-md primary border waves-effect waves-dark" href="{{ path ('job_offer_show', {'id': job_offer.id})}}">Details</a>
+                                            </div>
+                                            <div class="col s12 m6">{{ include('job_offer/_delete_form.html.twig') }}</div>
+                                             </div>
                                         </div>
                                     </div>
                                 </div>

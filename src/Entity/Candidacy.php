@@ -25,7 +25,7 @@ class Candidacy
 
     /**
      * @ORM\ManyToOne(targetEntity=JobOffer::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $jobOffer;
 

@@ -12,6 +12,7 @@ use App\Entity\JobType;
 use App\Form\JobOfferType;
 use App\Repository\CandidacyRepository;
 use App\Repository\CandidateRepository;
+use App\Repository\ClientRepository;
 use App\Repository\JobOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -191,16 +192,18 @@ class JobOfferController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="job_offer_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="job_offer_delete", methods={"POST"})
      */
-    public function delete(Request $request, JobOffer $jobOffer): Response
-    {
+    public function delete(Request $request, JobOffer $jobOffer, ClientRepository $clientRepository): Response
+    { $user = $this->getUser();
+      $client = $clientRepository->findOneBy(['user'=> $user]);  
+        dd($client);
         if ($this->isCsrfTokenValid('delete'.$jobOffer->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($jobOffer);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('job_offer_index');
+        return $this->redirectToRoute('client_edit');
     }
 }
